@@ -100,8 +100,7 @@ app.layout = html.Div([
     html.P("The app visualizes the GDP data using a dropdown, a slider, and a line graph."),
     html.P("The dropdown allows users to select any of the countries included in the dataset."),
     html.P("The slider features the range of years included in the dataset and allows users to select ranges of years."),
-    html.P("Users are able to select countries and years to be displayed in the graph below."),
-    html.P("The line graph shows the GDP per capita values over time of each country. "),
+    html.P("Users are able to select countries and years to be displayed in a graph of GDP per capita over time below."),
 
     # write code for the dropdown
     html.Div([
@@ -112,7 +111,7 @@ app.layout = html.Div([
             # write in country options from dataset
             options=[{'label': country, 'value': country} for country in data['country'].unique()],
             # make a placeholder
-            placeholder =  'select countries',
+            placeholder =  'Select countries',
             # allow multiple countries to be selected
             multi=True
         ),
@@ -152,7 +151,7 @@ app.layout = html.Div([
 def update_figure(selected_countries, selected_years):
     # return an empty graph if no countries are selected
     if selected_countries is None or len(selected_countries) == 0:
-        return px.line(title="No countries selected")
+        return px.line(title="No countries selected for GDP per Capita Graph")
     # use only user selected data
     filtered_data = data[(data['country'].isin(selected_countries)) & (data['year'].between(selected_years[0], selected_years[1]))]
     fig = px.line(filtered_data, x='year', y='gdp_pcap', color='country',
